@@ -36,7 +36,7 @@ class UpdatePedidoUseCaseTest {
         Long id = 5986L;
         Pedido existingPedido = new Pedido();
         existingPedido.setId(id);
-        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( "LUIS FIGO" ), Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
+        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( "LUIS FIGO" ), Optional.of( "MATERIAL TROCADO" ), Optional.of( 15 ) ,Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
 //        updateData.setNameClient(Optional.of("New Client"));
 //        updateData.setOrderDate(Optional.of(LocalDate.now()));
 //        updateData.setTotalValue(Optional.of(BigDecimal.valueOf(150)));
@@ -56,7 +56,7 @@ class UpdatePedidoUseCaseTest {
     void shouldThrowException_WhenIdDoesNotExist() {
 
         Long id = 964L;
-        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( "LUIS FIGO" ), Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
+        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( "LUIS FIGO" ), Optional.of( "MATERIAL TROCADO" ), Optional.of( 15 ) ,Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
 //        updateData.setNameClient(Optional.of("New Client"));
 //        updateData.setOrderDate(Optional.of(LocalDate.now()));
 //        updateData.setTotalValue(Optional.of(BigDecimal.valueOf(100)));

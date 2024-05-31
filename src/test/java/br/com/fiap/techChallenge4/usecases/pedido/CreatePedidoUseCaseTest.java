@@ -37,7 +37,7 @@ class CreatePedidoUseCaseTest {
         when(registrationData.orderDate()).thenReturn( LocalDate.from( LocalDate.now()));
         when(registrationData.totalValue()).thenReturn( BigDecimal.valueOf(100.0));
 
-        Pedido pedido = new Pedido("John Doe", LocalDate.now(), BigDecimal.valueOf( 100.0 ));
+        Pedido pedido = new Pedido("John Doe", "Material de Compra", 15,LocalDate.now(), BigDecimal.valueOf( 100.0 ));
         when(pedidoGateway.create(any())).thenReturn(pedido);
 
         // Act
