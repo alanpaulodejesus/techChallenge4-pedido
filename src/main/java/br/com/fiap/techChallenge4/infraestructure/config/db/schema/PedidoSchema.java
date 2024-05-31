@@ -44,7 +44,7 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
 
     @Enumerated(EnumType.STRING)
     //@Column(name = "status_entrega")
-    private StatusEntregaSchema statusEntrega;
+    private StatusPedidoSchema statusPedido;
 
     public PedidoSchema() {
         super();
@@ -56,11 +56,13 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
         this.qtde = pedido.getQtde();
         this.orderDate = pedido.getOrderDate();
         this.totalValue = pedido.getTotalValue();
+        this.setStatusPedido( pedido.getStatusPedido());
 
     }
     public Pedido toPedido(){
         Pedido pedido = new Pedido(this.nameClient, this.nameProduct, this.qtde, this.orderDate, this.totalValue );
         pedido.setId(this.getId());
+        pedido.setStatusPedido(this.getStatusPedido());
         return pedido;
     }
 }

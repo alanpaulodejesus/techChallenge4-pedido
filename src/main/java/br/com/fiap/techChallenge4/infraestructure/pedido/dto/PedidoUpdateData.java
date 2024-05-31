@@ -9,9 +9,7 @@ import java.util.Optional;
 
 public record PedidoUpdateData(
         Optional<String> nameClient,
-
         Optional<String> nameProduct,
-
         Optional<Integer> qtde,
         Optional<LocalDate> orderDate,
         Optional<BigDecimal> totalValue

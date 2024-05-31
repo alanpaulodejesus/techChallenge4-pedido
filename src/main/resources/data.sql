@@ -1,1 +1,1 @@
-INSERT INTO pedido (name_client, name_product, qtde, order_date, total_value, status_Entrega) VALUES ('EUSTÁQUIO', 'AGUA SANITARIA', 50 , '2024-05-25', 200.00,'AGUARDANDO_PAGAMENTO'),('PAULO ABREU', 'PREGOS BARTOLOMEU', 50 , '2024-07-07', 500.00,'AGUARDANDO_PAGAMENTO');
+INSERT INTO pedido (name_client, name_product, qtde, order_date, total_value, status_Pedido) VALUES ('EUSTÁQUIO', 'AGUA SANITARIA', 50 , '2024-05-25', 200.00,'AGUARDANDO_PAGAMENTO'),('PAULO ABREU', 'PREGOS BARTOLOMEU', 50 , '2024-07-07', 500.00,'AGUARDANDO_PAGAMENTO');
