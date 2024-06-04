@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public record PedidoUpdateData(
-        Optional<String> nameClient,
-        Optional<String> nameProduct,
+        Optional<Long> client,
+        Optional<Long> product,
         Optional<Integer> qtde,
         Optional<LocalDate> orderDate,
         Optional<BigDecimal> totalValue

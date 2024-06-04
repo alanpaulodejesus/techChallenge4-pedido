@@ -10,8 +10,8 @@ import java.time.LocalDate;
 
 public record PedidoPublicData(
         Long id,
-        String nameClient,
-        String nameProduct,
+        Long client,
+        Long product,
         Integer qtde,
         LocalDate oderDate,
         BigDecimal totalValue,
@@ -20,8 +20,8 @@ public record PedidoPublicData(
     public PedidoPublicData(Pedido pedido){
         this(
                 pedido.getId(),
-                pedido.getNameClient(),
-                pedido.getNameProduct(),
+                pedido.getClient(),
+                pedido.getProduct(),
                 pedido.getQtde(),
                 pedido.getOrderDate(),
                 pedido.getTotalValue(),

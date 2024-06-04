@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,11 +32,11 @@ class CreatePedidoUseCaseTest {
     void shouldCreatePedido_WhenRegistrationDataIsValid() {
         // Arrange
         IPedidoRegistrationData registrationData = mock(IPedidoRegistrationData.class);
-        when(registrationData.nameClient()).thenReturn("John Doe");
+        when(registrationData.client()).thenReturn( Long.valueOf( 1 ) );
         when(registrationData.orderDate()).thenReturn( LocalDate.from( LocalDate.now()));
         when(registrationData.totalValue()).thenReturn( BigDecimal.valueOf(100.0));
 
-        Pedido pedido = new Pedido("John Doe", "Material de Compra", 15,LocalDate.now(), BigDecimal.valueOf( 100.0 ));
+        Pedido pedido = new Pedido(Long.valueOf( 1 ) , Long.valueOf( 1 ) , 15,LocalDate.now(), BigDecimal.valueOf( 100.0 ));
         when(pedidoGateway.create(any())).thenReturn(pedido);
 
         // Act
@@ -54,7 +53,7 @@ class CreatePedidoUseCaseTest {
         MockitoAnnotations.openMocks(this);
         createPedidoUseCase = new CreatePedidoUseCase(pedidoGateway);
         IPedidoRegistrationData registrationData = mock(IPedidoRegistrationData.class);
-        when(registrationData.nameClient()).thenReturn(null);
+        when(registrationData.client()).thenReturn(null);
         when(registrationData.orderDate()).thenReturn(LocalDate.from( LocalDate.now()));
         when(registrationData.totalValue()).thenReturn(BigDecimal.valueOf(100.0));
 

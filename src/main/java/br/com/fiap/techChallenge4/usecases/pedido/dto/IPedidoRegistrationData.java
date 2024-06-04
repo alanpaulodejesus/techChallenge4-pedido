@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public interface IPedidoRegistrationData {
-    String nameClient();
-    String nameProduct();
+    Long client();
+    Long product();
     Integer qtde();
     LocalDate orderDate();
     BigDecimal totalValue();

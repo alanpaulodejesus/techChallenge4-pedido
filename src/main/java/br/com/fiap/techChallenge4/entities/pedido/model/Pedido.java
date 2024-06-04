@@ -15,9 +15,9 @@ import java.time.LocalDate;
 @Setter
 public class Pedido extends AbstractEntity<Long> {
 
-    private String nameClient;
+    private Long client;
 
-    private String nameProduct;
+    private Long product;
 
     private Integer qtde;
     private LocalDate orderDate;
@@ -26,9 +26,9 @@ public class Pedido extends AbstractEntity<Long> {
 
     private StatusPedidoSchema statusPedido;
 
-    public Pedido(String nameClient, String nameProduct, Integer qtde, LocalDate orderDate,BigDecimal totalValue) {
-        this.nameClient = nameClient;
-        this.nameProduct = nameProduct;
+    public Pedido(Long client, Long product, Integer qtde, LocalDate orderDate, BigDecimal totalValue) {
+        this.client = client;
+        this.product = product;
         this.qtde = qtde;
         this.orderDate = orderDate;
         this.totalValue = totalValue;

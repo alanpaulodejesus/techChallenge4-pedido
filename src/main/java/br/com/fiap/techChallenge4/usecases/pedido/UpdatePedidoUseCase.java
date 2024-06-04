@@ -21,8 +21,8 @@ public class UpdatePedidoUseCase {
 
     public Pedido execute(Long id, PedidoUpdateData updateData) throws PedidoNotFoundException {
         Pedido pedido = pedidoGateway.findById(id).orElseThrow( PedidoNotFoundException::new);
-        updatePropertyIfPresent( pedido::setNameClient, updateData::nameClient);
-        updatePropertyIfPresent( pedido::setNameProduct, updateData::nameProduct);
+        updatePropertyIfPresent( pedido::setClient, updateData::client );
+        updatePropertyIfPresent( pedido::setProduct, updateData::product );
         updateQtdefPresent( pedido::setQtde, updateData::qtde);
         updateOrderDateIfPresent( pedido::setOrderDate, updateData::orderDate);
         updateValueIfPresent( pedido::setTotalValue, updateData::totalValue );
@@ -30,7 +30,7 @@ public class UpdatePedidoUseCase {
         return this.pedidoGateway.update( pedido );
     }
 
-    private void updatePropertyIfPresent(Consumer<String> setter, Supplier<Optional<String>> valueSupplier) {
+    private void updatePropertyIfPresent(Consumer<Long> setter, Supplier<Optional<Long>> valueSupplier) {
         valueSupplier.get().ifPresent(setter);
     }
 

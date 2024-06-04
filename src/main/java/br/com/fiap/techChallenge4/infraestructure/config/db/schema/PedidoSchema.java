@@ -20,17 +20,14 @@ import java.time.LocalDate;
 @Setter
 public class PedidoSchema extends AbstractEntitySchema<Long> {
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 100)
-    //@Column(name = "name_client")
-    private String nameClient;
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 100)
+    @Size(min = 1, max = Integer.MAX_VALUE)
+    //@Column(name = "name_client")
+    private Long client;
+
+    @Size(min = 1, max = Integer.MAX_VALUE)
     //@Column(name = "name_product")
-    private String nameProduct;
+    private Long product;
 
     @Size(min = 1, max = Integer.MAX_VALUE)
     private Integer qtde;
@@ -51,8 +48,8 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
     }
     public PedidoSchema(Pedido pedido) {
         this.setId( pedido.getId());
-        this.nameClient = pedido.getNameClient();
-        this.nameProduct = pedido.getNameProduct();
+        this.client = pedido.getClient();
+        this.product = pedido.getProduct();
         this.qtde = pedido.getQtde();
         this.orderDate = pedido.getOrderDate();
         this.totalValue = pedido.getTotalValue();
@@ -60,7 +57,7 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
 
     }
     public Pedido toPedido(){
-        Pedido pedido = new Pedido(this.nameClient, this.nameProduct, this.qtde, this.orderDate, this.totalValue );
+        Pedido pedido = new Pedido(this.client, this.product, this.qtde, this.orderDate, this.totalValue );
         pedido.setId(this.getId());
         pedido.setStatusPedido(this.getStatusPedido());
         return pedido;

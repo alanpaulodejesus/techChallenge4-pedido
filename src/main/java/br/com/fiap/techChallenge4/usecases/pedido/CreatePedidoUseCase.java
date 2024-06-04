@@ -16,7 +16,7 @@ public class CreatePedidoUseCase {
 
     public Pedido execute(IPedidoRegistrationData registrationData){
         Pedido pedido =
-                new Pedido(registrationData.nameClient(), registrationData.nameProduct(), registrationData.qtde(), registrationData.orderDate(), registrationData.totalValue());
+                new Pedido(registrationData.client(), registrationData.product(), registrationData.qtde(), registrationData.orderDate(), registrationData.totalValue());
            pedido.setStatusPedido( StatusPedidoSchema.AGUARDANDO_PAGAMENTO);
         return pedidoGateway.create( pedido );
     }

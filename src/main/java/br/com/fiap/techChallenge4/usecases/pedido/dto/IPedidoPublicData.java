@@ -8,8 +8,8 @@ import java.time.LocalDate;
 public interface IPedidoPublicData {
 
     Long id();
-    String nameClient();
-    String nameProduct();
+    Long client();
+    Long product();
     Integer qtde();
     LocalDate orderDate();
     BigDecimal totalValue();

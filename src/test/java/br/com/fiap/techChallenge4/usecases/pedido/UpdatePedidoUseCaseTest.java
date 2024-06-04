@@ -36,17 +36,17 @@ class UpdatePedidoUseCaseTest {
         Long id = 5986L;
         Pedido existingPedido = new Pedido();
         existingPedido.setId(id);
-        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( "LUIS FIGO" ), Optional.of( "MATERIAL TROCADO" ), Optional.of( 15 ) ,Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
+        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( Long.valueOf( 1 ) ), Optional.of( Long.valueOf( 1 ) ), Optional.of( 15 ) ,Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
 //        updateData.setNameClient(Optional.of("New Client"));
 //        updateData.setOrderDate(Optional.of(LocalDate.now()));
 //        updateData.setTotalValue(Optional.of(BigDecimal.valueOf(150)));
-        updateData.nameClient();
+        updateData.client();
 
         when(pedidoGateway.findById(id)).thenReturn(Optional.of(existingPedido));
 
         Pedido updatedPedido = updatePedidoUseCase.execute(id, updateData);
 
-        assertEquals("ZINEDINE", updatedPedido.getNameClient());
+        assertEquals(Long.valueOf( 1 ) , updatedPedido.getClient());
         assertEquals(LocalDate.now(), updatedPedido.getOrderDate());
         assertEquals(BigDecimal.valueOf(100), updatedPedido.getTotalValue());
         verify(pedidoGateway, times(1)).update(existingPedido);
@@ -56,7 +56,7 @@ class UpdatePedidoUseCaseTest {
     void shouldThrowException_WhenIdDoesNotExist() {
 
         Long id = 964L;
-        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( "LUIS FIGO" ), Optional.of( "MATERIAL TROCADO" ), Optional.of( 15 ) ,Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
+        PedidoUpdateData updateData = new PedidoUpdateData( Optional.of( Long.valueOf( 1 )  ), Optional.of( Long.valueOf( 1 ) ), Optional.of( 15 ) ,Optional.ofNullable( LocalDate.from( LocalDate.now() ) ), Optional.of( BigDecimal.valueOf( 100.0 ) ) );
 //        updateData.setNameClient(Optional.of("New Client"));
 //        updateData.setOrderDate(Optional.of(LocalDate.now()));
 //        updateData.setTotalValue(Optional.of(BigDecimal.valueOf(100)));
