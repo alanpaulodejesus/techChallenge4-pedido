@@ -4,6 +4,7 @@ package br.com.fiap.techChallenge4.usecases.pedido;
 import br.com.fiap.techChallenge4.entities.pedido.gateway.PedidoGateway;
 import br.com.fiap.techChallenge4.entities.pedido.model.Pedido;
 import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusPedidoSchema;
+import br.com.fiap.techChallenge4.infraestructure.pedido.controller.Client;
 import br.com.fiap.techChallenge4.usecases.pedido.dto.IPedidoRegistrationData;
 
 public class CreatePedidoUseCase {
@@ -15,6 +16,7 @@ public class CreatePedidoUseCase {
     }
 
     public Pedido execute(IPedidoRegistrationData registrationData){
+
         Pedido pedido =
                 new Pedido(registrationData.client(), registrationData.product(), registrationData.qtde(), registrationData.orderDate(), registrationData.totalValue());
            pedido.setStatusPedido( StatusPedidoSchema.AGUARDANDO_PAGAMENTO);
