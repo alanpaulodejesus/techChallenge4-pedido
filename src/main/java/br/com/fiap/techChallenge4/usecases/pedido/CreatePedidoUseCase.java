@@ -4,7 +4,6 @@ package br.com.fiap.techChallenge4.usecases.pedido;
 import br.com.fiap.techChallenge4.entities.pedido.gateway.PedidoGateway;
 import br.com.fiap.techChallenge4.entities.pedido.model.Pedido;
 import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusPedidoSchema;
-import br.com.fiap.techChallenge4.infraestructure.pedido.controller.Client;
 import br.com.fiap.techChallenge4.usecases.pedido.dto.IPedidoRegistrationData;
 
 public class CreatePedidoUseCase {
