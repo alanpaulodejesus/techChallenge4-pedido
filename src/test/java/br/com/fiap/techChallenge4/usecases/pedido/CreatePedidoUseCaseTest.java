@@ -25,7 +25,7 @@ class CreatePedidoUseCaseTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        createPedidoUseCase = new CreatePedidoUseCase(pedidoGateway);
+        createPedidoUseCase = new CreatePedidoUseCase(pedidoGateway );
     }
 
     @Test
@@ -51,7 +51,7 @@ class CreatePedidoUseCaseTest {
     void shouldThrowException_WhenRegistrationDataIsInvalid() {
         // Arrange
         MockitoAnnotations.openMocks(this);
-        createPedidoUseCase = new CreatePedidoUseCase(pedidoGateway);
+        createPedidoUseCase = new CreatePedidoUseCase(pedidoGateway );
         IPedidoRegistrationData registrationData = mock(IPedidoRegistrationData.class);
         when(registrationData.client()).thenReturn(null);
         when(registrationData.orderDate()).thenReturn(LocalDate.from( LocalDate.now()));

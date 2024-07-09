@@ -9,4 +9,5 @@ public interface Client {
 
     @GetMapping("/clients/{id}")
     String getFindByClient(@PathVariable("id") Long id);
+
 }

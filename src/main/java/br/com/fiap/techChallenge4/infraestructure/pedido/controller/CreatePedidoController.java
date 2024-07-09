@@ -29,23 +29,6 @@ public class CreatePedidoController {
     @PostMapping("/pedido")
     @ResponseStatus(HttpStatus.CREATED)
     public PedidoPublicData createPedido(@Valid @RequestBody PedidoRegistrationData pedidoData) {
-        try {
-            client.getFindByClient( pedidoData.client());
-        } catch (FeignException.NotFound e) {
-            throw new ClientNotFoundException();
-        }
-
-        try {
-            product.getFindByProduct(pedidoData.product());
-            ProductStockResponse stockResponse = product.getFindByStock(pedidoData.product());
-            if (stockResponse.getQuantity() < pedidoData.qtde()) {
-                throw new ProductNotFoundStockException();
-            }
-        } catch (FeignException.NotFound e) {
-            throw new ProductNotFoundException();
-        }
-
         return new PedidoPublicData( createPedidoUseCase.execute(pedidoData));
     }
-
 }

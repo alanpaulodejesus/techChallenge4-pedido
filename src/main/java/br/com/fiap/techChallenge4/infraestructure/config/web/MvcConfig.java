@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
 public class MvcConfig {
 
     @Bean
-    public CreatePedidoUseCase createClientUseCase(PedidoRepository pedidoRepository) {
+    public CreatePedidoUseCase createPedidoUseCase(PedidoRepository pedidoRepository) {
         PedidoGateway pedidoGateway = new PedidoDatabaseGateway( pedidoRepository );
-        return new CreatePedidoUseCase( pedidoGateway );
+        return new CreatePedidoUseCase(pedidoGateway);
     }
 
     @Bean
@@ -27,13 +27,6 @@ public class MvcConfig {
         PedidoGateway pedidoGateway = new PedidoDatabaseGateway( pedidoRepository );
         return new GetPedidoUseCase( pedidoGateway );
     }
-
-//    @Bean
-//    public GetPedidoByIdentificationUseCase getPedidoByIdentificationUseCase(PedidoRepository pedidoRepository) {
-//        PedidoGateway pedidoGateway = new PedidoDatabaseGateway( pedidoRepository );
-//        return new GetPedidoByIdentificationUseCase( pedidoGateway );
-//    }
-
 
     @Bean
     public UpdatePedidoUseCase updatePedidoUseCase(PedidoRepository pedidoRepository) {
