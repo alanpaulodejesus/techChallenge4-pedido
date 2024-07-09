@@ -15,6 +15,8 @@ import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class CreatePedidoUseCase {
 
@@ -37,8 +39,9 @@ public class CreatePedidoUseCase {
     public Pedido execute(IPedidoRegistrationData registrationData){
         validateClient(registrationData.client());
         validateProduct(registrationData.product(),  registrationData.qtde());
+        BigDecimal totalValue = validateValueTotalProduct(registrationData.product(), registrationData.qtde());
         Pedido pedido =
-                new Pedido(registrationData.client(), registrationData.product(), registrationData.qtde(), registrationData.orderDate(), registrationData.totalValue());
+                new Pedido(registrationData.client(), registrationData.product(), registrationData.qtde(), registrationData.orderDate(), totalValue);
            pedido.setStatusPedido( StatusPedidoSchema.AGUARDANDO_PAGAMENTO);
         return pedidoGateway.create( pedido );
     }
@@ -62,4 +65,10 @@ public class CreatePedidoUseCase {
             throw new ProductNotFoundException();
         }
     }
+
+    private BigDecimal validateValueTotalProduct(Long productId, int quantity) {
+        ProductStockResponse stockResponse = product.getFindByProduct(productId);
+        return stockResponse.getPrice().multiply(BigDecimal.valueOf(quantity));
+    }
+
 }

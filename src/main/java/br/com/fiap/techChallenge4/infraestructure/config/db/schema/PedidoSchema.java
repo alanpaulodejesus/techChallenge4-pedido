@@ -22,11 +22,9 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
 
 
     @Size(min = 1, max = Integer.MAX_VALUE)
-    //@Column(name = "name_client")
     private Long client;
 
     @Size(min = 1, max = Integer.MAX_VALUE)
-    //@Column(name = "name_product")
     private Long product;
 
     @Size(min = 1, max = Integer.MAX_VALUE)
@@ -40,7 +38,6 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
     private BigDecimal totalValue;
 
     @Enumerated(EnumType.STRING)
-    //@Column(name = "status_entrega")
     private StatusPedidoSchema statusPedido;
 
     public PedidoSchema() {
