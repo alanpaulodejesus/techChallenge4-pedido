@@ -22,7 +22,7 @@ public class UpdatePedidoUseCase {
     public Pedido execute(Long id, PedidoUpdateData updateData) throws PedidoNotFoundException {
         Pedido pedido = pedidoGateway.findById(id).orElseThrow( PedidoNotFoundException::new);
         updatePropertyIfPresent( pedido::setClient, updateData::client );
-        updatePropertyIfPresent( pedido::setProduct, updateData::product );
+        //updatePropertyIfPresent( pedido::setProduto, updateData::product );
         updateQtdefPresent( pedido::setQtde, updateData::qtde);
         updateOrderDateIfPresent( pedido::setOrderDate, updateData::orderDate);
         updateValueIfPresent( pedido::setTotalValue, updateData::totalValue );
