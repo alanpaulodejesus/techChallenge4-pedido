@@ -21,13 +21,9 @@ import java.util.List;
 @Setter
 public class PedidoSchema extends AbstractEntitySchema<Long> {
 
-
     @Size(min = 1, max = Integer.MAX_VALUE)
     private Long client;
 
-    //@Size(min = 1, max = Integer.MAX_VALUE)
-//    @OneToMany
-//    @JoinColumn(name = "produto_id")
     @ElementCollection
     private List <Produto> product;
 

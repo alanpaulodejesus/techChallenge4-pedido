@@ -67,7 +67,7 @@ public class CreatePedidoUseCase {
                 if (stockResponse.getQuantity() < quantity) {
                     throw new ProductNotFoundStockException();
                 }
-                produtoList.add( new Produto(stockResponse.getId(), stockResponse.getName()));
+                produtoList.add( new Produto(stockResponse.getId(), stockResponse.getProductName()));
             } catch (FeignException.NotFound e) {
                 throw new ProductNotFoundException();
             }
