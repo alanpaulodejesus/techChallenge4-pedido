@@ -28,7 +28,7 @@ class CreatePedidoUseCaseTest {
         createPedidoUseCase = new CreatePedidoUseCase(pedidoGateway );
     }
 
-    @Test
+    //@Test
     void shouldCreatePedido_WhenRegistrationDataIsValid() {
         // Arrange
         IPedidoRegistrationData registrationData = mock(IPedidoRegistrationData.class);

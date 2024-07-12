@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Getter
@@ -17,7 +19,7 @@ public class Pedido extends AbstractEntity<Long> {
 
     private Long client;
 
-    private Long product;
+    private List <Produto> produto = new ArrayList <>();
 
     private Integer qtde;
     private LocalDate orderDate;
@@ -26,9 +28,9 @@ public class Pedido extends AbstractEntity<Long> {
 
     private StatusPedidoSchema statusPedido;
 
-    public Pedido(Long client, Long product, Integer qtde, LocalDate orderDate, BigDecimal totalValue) {
+    public Pedido(Long client, List <Produto> produto, Integer qtde, LocalDate orderDate, BigDecimal totalValue) {
         this.client = client;
-        this.product = product;
+        this.produto = produto;
         this.qtde = qtde;
         this.orderDate = orderDate;
         this.totalValue = totalValue;

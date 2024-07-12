@@ -1,1 +1,1 @@
-INSERT INTO pedido (client, product, qtde, order_date, total_value, status_Pedido) VALUES (1, 1, 50 , '2024-05-25', 200.00,'AGUARDANDO_PAGAMENTO'),(1, 1, 50 , '2024-07-07', 500.00,'AGUARDANDO_PAGAMENTO');
+INSERT INTO pedido (client, qtde, order_date, total_value, status_Pedido) VALUES (1, 50 , '2024-05-25', 200.00,'AGUARDANDO_PAGAMENTO'),(1, 50 , '2024-07-07', 500.00,'AGUARDANDO_PAGAMENTO');
