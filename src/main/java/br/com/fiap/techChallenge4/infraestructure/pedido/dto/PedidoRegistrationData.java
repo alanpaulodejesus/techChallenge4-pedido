@@ -11,7 +11,6 @@ public record PedidoRegistrationData(
           Long client,
           List <Long> product,
           Integer qtde,
-          LocalDate orderDate,
-          BigDecimal totalValue
+          LocalDate orderDate
 ) implements IPedidoRegistrationData {
 }

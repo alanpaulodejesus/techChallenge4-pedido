@@ -10,6 +10,5 @@ public interface IPedidoRegistrationData {
     List <Long> product();
     Integer qtde();
     LocalDate orderDate();
-    BigDecimal totalValue();
 
 }
