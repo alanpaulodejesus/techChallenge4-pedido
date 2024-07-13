@@ -7,7 +7,7 @@ import br.com.fiap.techChallenge4.entities.pedido.exception.ProductNotFoundStock
 import br.com.fiap.techChallenge4.entities.pedido.gateway.PedidoGateway;
 import br.com.fiap.techChallenge4.entities.pedido.model.Pedido;
 import br.com.fiap.techChallenge4.entities.pedido.model.Produto;
-import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusPedidoSchema;
+import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusSchema;
 import br.com.fiap.techChallenge4.infraestructure.pedido.controller.Client;
 import br.com.fiap.techChallenge4.infraestructure.pedido.controller.Product;
 import br.com.fiap.techChallenge4.usecases.ProductStockResponse;
@@ -45,8 +45,8 @@ public class CreatePedidoUseCase {
         produtoList = validateProduct(produtoList,registrationData.product(), registrationData.qtde() );
         BigDecimal totalValue = validateValueTotalProduct( registrationData.product(), registrationData.qtde() );
         Pedido pedido =
-                new Pedido( registrationData.client(), produtoList, registrationData.qtde(), registrationData.orderDate(), totalValue );
-        pedido.setStatusPedido( StatusPedidoSchema.AGUARDANDO_PAGAMENTO );
+                new Pedido( registrationData.client(), produtoList, registrationData.qtde(), registrationData.orderDate(), totalValue, registrationData.status());
+        pedido.setStatus( StatusSchema.AGUARDANDO_PAGAMENTO );
         return pedidoGateway.create( pedido );
     }
 

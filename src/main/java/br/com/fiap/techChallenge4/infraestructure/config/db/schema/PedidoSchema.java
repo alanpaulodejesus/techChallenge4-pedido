@@ -38,7 +38,7 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
     private BigDecimal totalValue;
 
     @Enumerated(EnumType.STRING)
-    private StatusPedidoSchema statusPedido;
+    private StatusSchema status;
 
     public PedidoSchema() {
         super();
@@ -50,13 +50,13 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
         this.qtde = pedido.getQtde();
         this.orderDate = pedido.getOrderDate();
         this.totalValue = pedido.getTotalValue();
-        this.setStatusPedido( pedido.getStatusPedido());
+        this.status = pedido.getStatus();
 
     }
     public Pedido toPedido(){
-        Pedido pedido = new Pedido(this.client, this.product, this.qtde, this.orderDate, this.totalValue );
+        Pedido pedido = new Pedido(this.client, this.product, this.qtde, this.orderDate, this.totalValue, this.status );
         pedido.setId(this.getId());
-        pedido.setStatusPedido(this.getStatusPedido());
+        pedido.setStatus(this.getStatus());
         return pedido;
     }
 }

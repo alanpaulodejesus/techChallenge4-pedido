@@ -2,7 +2,7 @@ package br.com.fiap.techChallenge4.entities.pedido.model;
 
 
 import br.com.fiap.techChallenge4.entities.AbstractEntity;
-import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusPedidoSchema;
+import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusSchema;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,14 +26,15 @@ public class Pedido extends AbstractEntity<Long> {
 
     private BigDecimal totalValue;
 
-    private StatusPedidoSchema statusPedido;
+    private StatusSchema status;
 
-    public Pedido(Long client, List <Produto> produto, Integer qtde, LocalDate orderDate, BigDecimal totalValue) {
+    public Pedido(Long client, List <Produto> produto, Integer qtde, LocalDate orderDate, BigDecimal totalValue, StatusSchema status) {
         this.client = client;
         this.produto = produto;
         this.qtde = qtde;
         this.orderDate = orderDate;
         this.totalValue = totalValue;
+        this.status = status;
     }
     public Pedido(){
 

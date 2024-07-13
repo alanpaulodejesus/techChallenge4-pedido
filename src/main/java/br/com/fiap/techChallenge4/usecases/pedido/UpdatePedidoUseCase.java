@@ -4,6 +4,7 @@ package br.com.fiap.techChallenge4.usecases.pedido;
 import br.com.fiap.techChallenge4.entities.pedido.exception.PedidoNotFoundException;
 import br.com.fiap.techChallenge4.entities.pedido.gateway.PedidoGateway;
 import br.com.fiap.techChallenge4.entities.pedido.model.Pedido;
+import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusSchema;
 import br.com.fiap.techChallenge4.infraestructure.pedido.dto.PedidoUpdateData;
 
 import java.math.BigDecimal;
@@ -26,6 +27,7 @@ public class UpdatePedidoUseCase {
         updateQtdefPresent( pedido::setQtde, updateData::qtde);
         updateOrderDateIfPresent( pedido::setOrderDate, updateData::orderDate);
         updateValueIfPresent( pedido::setTotalValue, updateData::totalValue );
+        updateStatusIfPresent( pedido::setStatus, updateData::status );
 
         return this.pedidoGateway.update( pedido );
     }
@@ -45,4 +47,9 @@ public class UpdatePedidoUseCase {
     private void updateQtdefPresent(Consumer<Integer> setter, Supplier<Optional<Integer>> valueSupplier) {
         valueSupplier.get().ifPresent(setter);
     }
+
+    private void updateStatusIfPresent(Consumer<StatusSchema> setter, Supplier<Optional<StatusSchema>> statusSupplier) {
+        statusSupplier.get().ifPresent(setter);
+    }
+
 }

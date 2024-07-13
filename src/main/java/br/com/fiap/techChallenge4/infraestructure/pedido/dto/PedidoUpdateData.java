@@ -1,6 +1,8 @@
 package br.com.fiap.techChallenge4.infraestructure.pedido.dto;
 
 
+import br.com.fiap.techChallenge4.entities.pedido.model.Produto;
+import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusSchema;
 import br.com.fiap.techChallenge4.usecases.pedido.dto.IPedidoUpdateData;
 
 import java.math.BigDecimal;
@@ -10,10 +12,11 @@ import java.util.Optional;
 
 public record PedidoUpdateData(
         Optional<Long> client,
-        Optional <List <Long>> product,
+        Optional <List <Produto>> product,
         Optional<Integer> qtde,
         Optional<LocalDate> orderDate,
-        Optional<BigDecimal> totalValue
+        Optional<BigDecimal> totalValue,
+        Optional<StatusSchema> status
 
 ) implements IPedidoUpdateData {
 
