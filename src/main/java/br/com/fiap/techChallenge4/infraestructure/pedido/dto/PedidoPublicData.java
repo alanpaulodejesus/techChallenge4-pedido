@@ -14,17 +14,17 @@ public record PedidoPublicData(
         Long id,
         Long client,
         List <Produto> product,
-        Integer qtde,
+        //Integer qtde,
         LocalDate oderDate,
         BigDecimal totalValue,
         StatusPedidoSchema statusPedido
 ) implements IPedidoPublicData {
     public PedidoPublicData(Pedido pedido){
         this(
-                pedido.getId(),
+                (Long) pedido.getId(),
                 pedido.getClient(),
                 pedido.getProduto(),
-                pedido.getQtde(),
+                //pedido.getQtde(),
                 pedido.getOrderDate(),
                 pedido.getTotalValue(),
                 pedido.getStatusPedido());

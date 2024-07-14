@@ -16,6 +16,6 @@ public class DeletePedidoUseCase {
     public void execute(final Long id) throws PedidoNotFoundException {
         Pedido pedido = pedidoGateway.findById(id)
                 .orElseThrow( PedidoNotFoundException::new);
-        pedidoGateway.delete( pedido.getId());
+        pedidoGateway.delete( (Long) pedido.getId() );
     }
 }

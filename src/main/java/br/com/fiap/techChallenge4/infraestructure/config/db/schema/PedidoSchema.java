@@ -44,17 +44,17 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
         super();
     }
     public PedidoSchema(Pedido pedido) {
-        this.setId( pedido.getId());
+        this.setId( (Long) pedido.getId() );
         this.client = pedido.getClient();
         this.product = pedido.getProduto();
-        this.qtde = pedido.getQtde();
+        //this.qtde = pedido.getQtde();
         this.orderDate = pedido.getOrderDate();
         this.totalValue = pedido.getTotalValue();
         this.setStatusPedido( pedido.getStatusPedido());
 
     }
     public Pedido toPedido(){
-        Pedido pedido = new Pedido(this.client, this.product, this.qtde, this.orderDate, this.totalValue );
+        Pedido pedido = new Pedido(this.client, this.product,  this.orderDate, this.totalValue );
         pedido.setId(this.getId());
         pedido.setStatusPedido(this.getStatusPedido());
         return pedido;

@@ -13,30 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Getter
-@Setter
-public class Pedido extends AbstractEntity<Long> {
-
+public class Pedido extends AbstractEntity{
     private Long client;
-
-    private List <Produto> produto = new ArrayList <>();
-
-    private Integer qtde;
+    private List<Produto> produto = new ArrayList<>();
     private LocalDate orderDate;
-
     private BigDecimal totalValue;
-
     private StatusPedidoSchema statusPedido;
 
-    public Pedido(Long client, List <Produto> produto, Integer qtde, LocalDate orderDate, BigDecimal totalValue) {
+    public Pedido(Long client, List<Produto> produto, LocalDate orderDate, BigDecimal totalValue) {
         this.client = client;
         this.produto = produto;
-        this.qtde = qtde;
         this.orderDate = orderDate;
         this.totalValue = totalValue;
     }
-    public Pedido(){
 
+    public Pedido() {
     }
-
 }

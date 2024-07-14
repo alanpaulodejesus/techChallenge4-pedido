@@ -12,7 +12,7 @@ public interface IPedidoPublicData {
     Long id();
     Long client();
     List <Produto> product();
-    Integer qtde();
+    //Integer qtde();
     LocalDate orderDate();
     BigDecimal totalValue();
     StatusPedidoSchema statusPedido();

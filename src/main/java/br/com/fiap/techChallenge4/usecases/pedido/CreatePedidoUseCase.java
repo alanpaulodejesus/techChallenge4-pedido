@@ -40,34 +40,34 @@ public class CreatePedidoUseCase {
     }
 
     public Pedido execute(IPedidoRegistrationData registrationData) {
-        List <Produto> produtoList = new ArrayList <>();
-        validateClient( registrationData.client() );
-        produtoList = validateProduct(produtoList,registrationData.product(), registrationData.qtde() );
-        BigDecimal totalValue = validateValueTotalProduct( registrationData.product(), registrationData.qtde() );
-        Pedido pedido =
-                new Pedido( registrationData.client(), produtoList, registrationData.qtde(), registrationData.orderDate(), totalValue );
-        pedido.setStatusPedido( StatusPedidoSchema.AGUARDANDO_PAGAMENTO );
-        return pedidoGateway.create( pedido );
+        List<Produto> produtoList = new ArrayList<>();
+        validateClient(registrationData.client());
+        produtoList = validateProduct(produtoList, registrationData.product(), registrationData.qtde());
+        BigDecimal totalValue = calculateTotalValue(produtoList);
+        Pedido pedido = new Pedido(registrationData.client(), produtoList, registrationData.orderDate(), totalValue);
+        pedido.setStatusPedido(StatusPedidoSchema.AGUARDANDO_PAGAMENTO);
+        return pedidoGateway.create(pedido);
     }
 
     private void validateClient(Long clientId) {
         try {
-            this.client.getFindByClient( clientId );
+            this.client.getFindByClient(clientId);
         } catch (FeignException.NotFound e) {
             throw new ClientNotFoundException();
         }
     }
 
-    private List <Produto> validateProduct(List<Produto> produtoList ,List <Long> products, int quantity) {
-
+    private List<Produto> validateProduct(List<Produto> produtoList, List<Long> products, int quantity) {
         for (Long productId : products) {
             try {
-                product.getFindByProduct( productId );
-                ProductStockResponse stockResponse = product.getFindByStock( productId );
+                product.getFindByProduct(productId);
+                ProductStockResponse stockResponse = product.getFindByStock(productId);
                 if (stockResponse.getQuantity() < quantity) {
                     throw new ProductNotFoundStockException();
                 }
-                produtoList.add( new Produto(stockResponse.getId(), stockResponse.getProductName()));
+                ProductStockResponse priceProductStock = product.getFindByProduct( productId);
+                BigDecimal valorTotal = priceProductStock.getPrice().multiply(BigDecimal.valueOf(quantity));
+                produtoList.add(new Produto(stockResponse.getId(), stockResponse.getProductName(), quantity, valorTotal));
             } catch (FeignException.NotFound e) {
                 throw new ProductNotFoundException();
             }
@@ -75,13 +75,11 @@ public class CreatePedidoUseCase {
         return produtoList;
     }
 
-    private BigDecimal validateValueTotalProduct(List<Long> products, int quantity) {
-        BigDecimal totalValue= BigDecimal.valueOf(0);
-        for (Long productId : products) {
-            ProductStockResponse stockResponse = product.getFindByProduct( productId );
-            totalValue = totalValue.add(stockResponse.getPrice().multiply( BigDecimal.valueOf( quantity)));
+    private BigDecimal calculateTotalValue(List<Produto> produtos) {
+        BigDecimal totalValue = BigDecimal.ZERO;
+        for (Produto produto : produtos) {
+            totalValue = totalValue.add(produto.getPrice());
         }
         return totalValue;
     }
-
 }
