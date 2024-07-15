@@ -33,8 +33,6 @@ public class PedidoSchema extends AbstractEntitySchema<Long> {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate orderDate;
 
-    @NotNull
-    @Positive
     private BigDecimal totalValue;
 
     @Enumerated(EnumType.STRING)

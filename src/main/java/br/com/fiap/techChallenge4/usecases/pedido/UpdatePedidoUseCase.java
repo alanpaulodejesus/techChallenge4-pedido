@@ -4,10 +4,9 @@ package br.com.fiap.techChallenge4.usecases.pedido;
 import br.com.fiap.techChallenge4.entities.pedido.exception.PedidoNotFoundException;
 import br.com.fiap.techChallenge4.entities.pedido.gateway.PedidoGateway;
 import br.com.fiap.techChallenge4.entities.pedido.model.Pedido;
+import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusPedidoSchema;
 import br.com.fiap.techChallenge4.infraestructure.pedido.dto.PedidoUpdateData;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -21,28 +20,12 @@ public class UpdatePedidoUseCase {
 
     public Pedido execute(Long id, PedidoUpdateData updateData) throws PedidoNotFoundException {
         Pedido pedido = pedidoGateway.findById(id).orElseThrow( PedidoNotFoundException::new);
-        updatePropertyIfPresent( pedido::setClient, updateData::client );
-        //updatePropertyIfPresent( pedido::setProduto, updateData::product );
-        //updateQtdefPresent( pedido::setQtde, updateData::qtde);
-        updateOrderDateIfPresent( pedido::setOrderDate, updateData::orderDate);
-        updateValueIfPresent( pedido::setTotalValue, updateData::totalValue );
+        updateStatusPresent(pedido::setStatusPedido, updateData::statusPedidoSchema);
 
         return this.pedidoGateway.update( pedido );
     }
 
-    private void updatePropertyIfPresent(Consumer<Long> setter, Supplier<Optional<Long>> valueSupplier) {
-        valueSupplier.get().ifPresent(setter);
-    }
-
-    private void updateOrderDateIfPresent(Consumer<LocalDate> setter, Supplier<Optional<LocalDate>> valueSupplier) {
-        valueSupplier.get().ifPresent(setter);
-    }
-
-    private void updateValueIfPresent(Consumer<BigDecimal> setter, Supplier<Optional<BigDecimal>> valueSupplier) {
-        valueSupplier.get().ifPresent(setter);
-    }
-
-    private void updateQtdefPresent(Consumer<Integer> setter, Supplier<Optional<Integer>> valueSupplier) {
+    private void updateStatusPresent(Consumer<StatusPedidoSchema> setter, Supplier<Optional<StatusPedidoSchema>> valueSupplier) {
         valueSupplier.get().ifPresent(setter);
     }
 }

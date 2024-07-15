@@ -18,7 +18,7 @@ public class UpdatePedidoController {
     }
 
 
-    @PutMapping("/pedido/{id}")
+    @PutMapping("/pedido-status/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PedidoPublicData updatePedido(@PathVariable Long id, @Valid @RequestBody PedidoUpdateData updateData) throws PedidoNotFoundException {
         return new PedidoPublicData( updatePedidoUseCase.execute(id,updateData));

@@ -1,6 +1,7 @@
 package br.com.fiap.techChallenge4.usecases.pedido;
 
 
+import br.com.fiap.techChallenge4.entities.pedido.exception.PedidoDeleteNotPermitionException;
 import br.com.fiap.techChallenge4.entities.pedido.exception.PedidoNotFoundException;
 import br.com.fiap.techChallenge4.entities.pedido.gateway.PedidoGateway;
 import br.com.fiap.techChallenge4.entities.pedido.model.Pedido;
@@ -16,6 +17,14 @@ public class DeletePedidoUseCase {
     public void execute(final Long id) throws PedidoNotFoundException {
         Pedido pedido = pedidoGateway.findById(id)
                 .orElseThrow( PedidoNotFoundException::new);
-        pedidoGateway.delete( (Long) pedido.getId() );
+
+        switch (pedido.getStatusPedido()) {
+            case PAGO:
+            case AGUARDANDO_ENTREGA:
+            case ENTREGUE:
+                throw new PedidoDeleteNotPermitionException();
+            default:
+                pedidoGateway.delete( (Long) pedido.getId());
+        }
     }
 }
