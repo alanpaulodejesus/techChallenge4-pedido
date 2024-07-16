@@ -7,7 +7,7 @@ import br.com.fiap.techChallenge4.entities.pedido.exception.ProductNotFoundStock
 import br.com.fiap.techChallenge4.entities.pedido.gateway.PedidoGateway;
 import br.com.fiap.techChallenge4.entities.pedido.model.Pedido;
 import br.com.fiap.techChallenge4.entities.pedido.model.Produto;
-import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusPedidoSchema;
+import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusSchema;
 import br.com.fiap.techChallenge4.infraestructure.pedido.controller.Client;
 import br.com.fiap.techChallenge4.infraestructure.pedido.controller.Product;
 import br.com.fiap.techChallenge4.usecases.ProductStockResponse;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CreatePedidoUseCase {
@@ -40,34 +41,34 @@ public class CreatePedidoUseCase {
     }
 
     public Pedido execute(IPedidoRegistrationData registrationData) {
-        List <Produto> produtoList = new ArrayList <>();
-        validateClient( registrationData.client() );
-        produtoList = validateProduct(produtoList,registrationData.product(), registrationData.qtde() );
-        BigDecimal totalValue = validateValueTotalProduct( registrationData.product(), registrationData.qtde() );
-        Pedido pedido =
-                new Pedido( registrationData.client(), produtoList, registrationData.qtde(), registrationData.orderDate(), totalValue );
-        pedido.setStatusPedido( StatusPedidoSchema.AGUARDANDO_PAGAMENTO );
-        return pedidoGateway.create( pedido );
+        List<Produto> produtoList = new ArrayList<>();
+        validateClient(registrationData.client());
+        produtoList = validateProduct(produtoList, registrationData.productsQuantityMap());
+        BigDecimal totalValue = calculateTotalValue(produtoList);
+        Pedido pedido = new Pedido(registrationData.client(), produtoList, registrationData.orderDate(), totalValue);
+        pedido.setStatus( StatusSchema.AGUARDANDO_PAGAMENTO);
+        return pedidoGateway.create(pedido);
     }
 
     private void validateClient(Long clientId) {
         try {
-            this.client.getFindByClient( clientId );
+            this.client.getFindByClient(clientId);
         } catch (FeignException.NotFound e) {
             throw new ClientNotFoundException();
         }
     }
 
-    private List <Produto> validateProduct(List<Produto> produtoList ,List <Long> products, int quantity) {
-
-        for (Long productId : products) {
+    private List<Produto> validateProduct(List<Produto> produtoList, Map<Long, Integer> productsQuantityMap) {
+        for (Long productId : productsQuantityMap.keySet()) {
             try {
-                product.getFindByProduct( productId );
-                ProductStockResponse stockResponse = product.getFindByStock( productId );
-                if (stockResponse.getQuantity() < quantity) {
+                product.getFindByProduct(productId);
+                ProductStockResponse stockResponse = product.getFindByStock(productId);
+                if (stockResponse.getQuantity() < productsQuantityMap.get( productId )) {
                     throw new ProductNotFoundStockException();
                 }
-                produtoList.add( new Produto(stockResponse.getId(), stockResponse.getProductName()));
+                ProductStockResponse priceProductStock = product.getFindByProduct( productId);
+                BigDecimal valorTotal = priceProductStock.getPrice().multiply(BigDecimal.valueOf(productsQuantityMap.get( productId )));
+                produtoList.add(new Produto(stockResponse.getId(), stockResponse.getProductName(), productsQuantityMap.get( productId ), valorTotal));
             } catch (FeignException.NotFound e) {
                 throw new ProductNotFoundException();
             }
@@ -75,13 +76,11 @@ public class CreatePedidoUseCase {
         return produtoList;
     }
 
-    private BigDecimal validateValueTotalProduct(List<Long> products, int quantity) {
-        BigDecimal totalValue= BigDecimal.valueOf(0);
-        for (Long productId : products) {
-            ProductStockResponse stockResponse = product.getFindByProduct( productId );
-            totalValue = totalValue.add(stockResponse.getPrice().multiply( BigDecimal.valueOf( quantity)));
+    private BigDecimal calculateTotalValue(List<Produto> produtos) {
+        BigDecimal totalValue = BigDecimal.ZERO;
+        for (Produto produto : produtos) {
+            totalValue = totalValue.add(produto.getPrice());
         }
         return totalValue;
     }
-
 }

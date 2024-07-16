@@ -1,15 +1,11 @@
 package br.com.fiap.techChallenge4.usecases.pedido.dto;
 
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
+import br.com.fiap.techChallenge4.infraestructure.config.db.schema.StatusSchema;
+
 import java.util.Optional;
 
 public interface IPedidoUpdateData {
-    Optional<Long> client();
-    Optional <List <Long>> product();
-    Optional<Integer> qtde();
-    Optional<LocalDate> orderDate();
-    Optional<BigDecimal> totalValue();
+
+    Optional<StatusSchema> statusSchema();
 }
