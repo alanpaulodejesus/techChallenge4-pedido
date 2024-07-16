@@ -18,7 +18,7 @@ public class DeletePedidoUseCase {
         Pedido pedido = pedidoGateway.findById(id)
                 .orElseThrow( PedidoNotFoundException::new);
 
-        switch (pedido.getStatusPedido()) {
+        switch (pedido.getStatus()) {
             case PAGO:
             case AGUARDANDO_ENTREGA:
             case ENTREGUE:
