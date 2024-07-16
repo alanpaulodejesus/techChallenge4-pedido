@@ -1,5 +1,6 @@
 package br.com.fiap.techChallenge4.infraestructure.pedido.controller;
 
+import br.com.fiap.techChallenge4.usecases.ClientResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface Client {
 
     @GetMapping("/clients/{id}")
-    String getFindByClient(@PathVariable("id") Long id);
+    ClientResponse getFindByClient(@PathVariable("id") Long id);
 
 }

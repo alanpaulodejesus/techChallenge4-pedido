@@ -23,4 +23,10 @@ public class UpdatePedidoController {
     public PedidoPublicData updatePedido(@PathVariable Long id, @Valid @RequestBody PedidoUpdateData updateData) throws PedidoNotFoundException {
         return new PedidoPublicData( updatePedidoUseCase.execute(id,updateData));
     }
+
+    @PutMapping("/pagar-pedido/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PedidoPublicData updatePedidoPago(@PathVariable Long id) throws PedidoNotFoundException {
+        return new PedidoPublicData( updatePedidoUseCase.executePagamento(id));
+    }
 }
